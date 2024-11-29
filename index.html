@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./css/login.css" />
+		<link rel="stylesheet" href="./css/main.css" />
+		<title>Sign In</title>
+		<script src="https://kit.fontawesome.com/0afaeea3b6.js" crossorigin="anonymous"></script>
+		<script src="./js/login.js"></script>
+	</head>
+	<body>
+		<div id="root" class="login-root">
+			<div class="login-container">
+				<div class="login-container-block">
+					<div class="login-title">
+						<div class="title-content">
+							<img
+								src="./pic/HVN_banner-icon.jpg"
+								alt="Banner Icon"
+								class="title-image"
+							/>
+							<span class="title-text">E-LEARNING</span>
+						</div>
+						<span class="subtitle">Trách nhiệm - Năng động - Sáng tạo</span>
+					</div>
+					<div class="login-body">
+						<div class="container">
+							<div class="container__element header">
+								<span class="header__title"><b>ĐĂNG KÝ</b></span>
+							</div>
+							<div class="container__element body">
+								<div class="input-block">
+									<i class="fa-solid fa-envelope"></i>
+									<input
+										type="text"
+										class="block__input"
+										id="emailid"
+										placeholder="Tài khoản email . . . "
+									/>
+								</div>
+								<div class="input-block">
+									<i class="fa-solid fa-user"></i>
+									<input
+										type="text"
+										class="block__input"
+										id="username"
+										placeholder="Tạo tài khoản . . ."
+									/>
+								</div>
+								<div class="input-block">
+									<i class="fa-solid fa-lock"></i>
+									<input
+										type="password"
+										id="password"
+										class="block__input"
+										placeholder="Tạo mật khẩu . . ."
+									/>
+								</div>
+							</div>
+							<div class="container__element footer">
+								<div class="footer__container">
+									<button onclick="signup()" class="footer__button button--left" type="submit">Đăng kí</button>
+									<a href="./signup.html" class="footer__button button--right"
+										>Đăng nhập</a
+									>
+								</div>
+								
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="login-contact">
+				<div class="contact__left">
+					<p class="contact__left__slogan">
+						Mở Ra Bầu Trời Mới Cùng Với Kho Tàng Kiến Thức Số
+					</p>
+					<p class="contact__left__description">
+						Chào mừng bạn đến với HVN E-LEARNING. Hãy tiếp tục trau dồi kiến thức, kinh
+						nghiệm và cùng nhau tạo ra những phút giây học tập thật vui vẻ và năng suất
+						nhé!!!
+					</p>
+				</div>
+				<div class="contact__right">
+					<div class="pic">
+						<img
+							src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWzCHy1Zg7lph2fQYhTIjSrOVW5WhGgub_OA&s"
+							alt="hinh-anh"
+							class="picture"
+						/>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			changeLoginButtonText(".footer__button.button--left", "Chưa có tài khoản?", "Đăng kí");
+			window.addEventListener("resize", () => {
+				changeLoginButtonText(
+					".footer__button.button--left",
+					"Tạo tài khoản",
+					"Đăng kí"
+				);
+			});
+		</script>
+		<script>
+			// Hàm đăng nhập
+function signup() {
+  // Lấy giá trị từ các trường đầu vào
+  const email = document.getElementById("emailid").value.trim();
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  // Kiểm tra xem các trường đầu vào có giá trị hay không
+  if (!email ||!username || !password) {
+    alert("Vui lòng nhập email và mật khẩu.");
+    return;
+  }
+
+  // Kiểm tra định dạng email
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    alert("Email không hợp lệ.");
+    return;
+  }
+
+  // Kiểm tra độ dài mật khẩu
+  if (password.length < 6) {
+    alert("Mật khẩu phải có ít nhất 6 ký tự.");
+    return;
+  }
+
+  // Tạo đối tượng người dùng
+  const user = {
+    email: email,
+	username: username,
+    password: password,
+    lastLogin: new Date().toISOString()
+  };
+
+  // Lấy danh sách người dùng từ localStorage (nếu có)
+  let users = JSON.parse(localStorage.getItem("users")) || [];
+
+  // Kiểm tra xem người dùng đã tồn tại trong danh sách chưa
+  const existingUserIndex = users.findIndex(u => u.email === email);
+
+  if (existingUserIndex !== -1) {
+    // Nếu đã tồn tại, cập nhật thông tin đăng nhập gần nhất
+    users[existingUserIndex] = user;
+  } else {
+    // Nếu chưa tồn tại, thêm người dùng vào danh sách
+    users.push(user);
+  }
+
+  // Lưu lại danh sách người dùng vào localStorage
+  localStorage.setItem("users", JSON.stringify(users));
+
+  // Hiển thị thông báo đăng nhập thành công hoặc chuyển hướng trang
+  alert("Đăng ký thành công!");
+  window.location.href = "./signup.html";
+}
+		</script>
+</body>
+</html>

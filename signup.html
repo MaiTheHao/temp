@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./css/login.css" />
+		<link rel="stylesheet" href="./css/main.css" />
+		<title>Sign In</title>
+		<script src="https://kit.fontawesome.com/0afaeea3b6.js" crossorigin="anonymous"></script>
+		<script src="./js/login.js"></script>
+	</head>
+	<body>
+		<div id="root" class="login-root">
+			<div class="login-container">
+				<div class="login-container-block">
+					<div class="login-title">
+						<div class="title-content">
+							<img
+								src="./pic/HVN_banner-icon.jpg"
+								alt="Banner Icon"
+								class="title-image"
+							/>
+							<span class="title-text">E-LEARNING</span>
+						</div>
+						<span class="subtitle">Trách nhiệm - Năng động - Sáng tạo</span>
+					</div>
+					<div class="login-body">
+						<div class="container">
+							<div class="container__element header">
+								<span class="header__title"><b>ĐĂNG NHẬP</b></span>
+							</div>
+							<div class="container__element body">
+								<div class="input-block">
+									<i class="fa-solid fa-user"></i>
+									<input
+										type="text"
+										id="username"
+										class="block__input"
+										placeholder="Nhập tài khoản . . ."
+									/>
+								</div>
+								<div class="input-block">
+									<i class="fa-solid fa-lock"></i>
+									<input
+										type="password"
+										id="password"
+										class="block__input"
+										placeholder="Nhập mật khẩu . . ."
+									/>
+								</div>
+							</div>
+							<div class="container__element footer">
+								<div class="footer__container">
+									<a href="./index.html" class="footer__button button--left"
+									>Đăng kí</a>
+									<button onclick="signin()" class="footer__button button--right">Đăng nhập</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="login-contact">
+				<div class="contact__left">
+					<p class="contact__left__slogan">
+						Mở Ra Bầu Trời Mới Cùng Với Kho Tàng Kiến Thức Số
+					</p>
+					<p class="contact__left__description">
+						Chào mừng bạn đến với HVN E-LEARNING. Hãy tiếp tục trau dồi kiến thức, kinh
+						nghiệm và cùng nhau tạo ra những phút giây học tập thật vui vẻ và năng suất
+						nhé!!!
+					</p>
+				</div>
+				<div class="contact__right">
+					<div class="pic">
+						<img
+							src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTWzCHy1Zg7lph2fQYhTIjSrOVW5WhGgub_OA&s"
+							alt="hinh-anh"
+							class="picture"
+						/>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script>
+			// Định nghĩa hàm changeLoginButtonText
+			function changeLoginButtonText(selector, oldText, newText) {
+			  const button = document.querySelector(selector);
+			  if (button && button.textContent.trim() === oldText) {
+				button.textContent = newText;
+			  }
+			}
+		  
+			// Thay đổi văn bản nút khi trang được tải
+			changeLoginButtonText(".footer__button.button--left", "Chưa có tài khoản?", "Đăng kí");
+		  
+			// Thêm sự kiện lắng nghe khi thay đổi kích thước cửa sổ
+			window.addEventListener("resize", () => {
+			  changeLoginButtonText(".footer__button.button--left", "Đã có tài khoản?", "Đăng nhập");
+			});
+		  </script>
+		  
+		<script> 
+			function signin() {
+  // Lấy giá trị từ các trường đầu vào
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  // Kiểm tra xem các trường đầu vào có giá trị hay không
+  if (!username || !password) {
+    alert("Vui lòng nhập tài khoản và mật khẩu.");
+    return;
+  }
+
+  // Lấy danh sách người dùng từ localStorage
+  const users = JSON.parse(localStorage.getItem("users")) || [];
+
+  // Tìm người dùng với email và mật khẩu nhập vào
+  const user = users.find(user => user.username === username && user.password === password);
+
+  if (user) {
+    // Nếu tìm thấy người dùng, đăng nhập thành công
+    alert("Đăng nhập thành công!");
+    window.location.href = "./trangchu.html"; // Điều hướng đến trang chính
+  } else {
+    // Nếu không tìm thấy người dùng, báo lỗi
+    alert("Tên người dùng hoặc mật khẩu không đúng.");
+  }
+}
+
+		</script>
+		</body>
+</html>
